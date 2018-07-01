@@ -88,6 +88,9 @@ def getAllCompDefProperties(cd_obj):
         ])
     return(compDefProps)
 
+def prettyPrintAllCompDefs(cdPro):
+    for i in cdPro:
+        print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nType:\t", i[3], "\nRole:\t", i[4],"\nSequences:\t", i[5], "\nComponents:\t", i[6], "\n\n")
 
 def getAllModDefObjs(doc_obj):
     return(doc_obj.module_definitions)
@@ -139,6 +142,11 @@ def getAllModDefProperties(cd_obj):
         getModDefsName([i]),
         getModDefsDisplayId([i]),
         getModDefsPersisentIdentities([i]),
+        getModDefsRoles([i]),
         getModDefsModules([i])
         ])
     return(compDefProps)
+
+def prettyPrintAllModDefs(cdPro):
+    for i in cdPro:
+        print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nRole:\t", i[3], "\nModules:\t", i[4], "\n\n")
