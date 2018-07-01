@@ -58,6 +58,22 @@ def getCompDefsSequences(cd_obj):
         n += 1
     return(cdSeq)
 
+def getCompDefsComponents(cd_obj):
+    cdComp = []
+    cdCompObjs = []
+    for i in cd_obj:
+        cdCompObjs.append(i.components)
+    n = 0
+    for j in cdCompObjs:
+        if len(j) > 0:
+            cdComp.append([])
+            for k in j:
+                cdComp[n].append([k.display_id,k.display_name,k.persistent_identity,k.definition.uri])
+        else:
+            cdComp.append("No Components")
+        n += 1
+    return(cdComp)
+
 def getAllCompDefProperties(cd_obj):
     compDefProps = []
     for i in cd_obj:
@@ -67,6 +83,62 @@ def getAllCompDefProperties(cd_obj):
         getCompDefsPersisentIdentities([i]),
         getCompDefsTypes([i]),
         getCompDefsRoles([i]),
-        getCompDefsSequences([i])
+        getCompDefsSequences([i]),
+        getCompDefsComponents([i])
+        ])
+    return(compDefProps)
+
+
+def getAllModDefObjs(doc_obj):
+    return(doc_obj.module_definitions)
+
+def getModDefsDisplayId(cd_obj):
+    cdDisps = []
+    for i in cd_obj:
+        cdDisps.append(i.display_id)
+    return(cdDisps)
+
+def getModDefsName(cd_obj):
+    cdNames = []
+    for i in cd_obj:
+        cdNames.append(i.display_name)
+    return(cdNames)
+
+def getModDefsPersisentIdentities(cd_obj):
+    cdPersistId = []
+    for i in cd_obj:
+        cdPersistId.append(i.persistent_identity)
+    return(cdPersistId)
+
+def getModDefsRoles(cd_obj):
+    cdRoles = []
+    for i in cd_obj:
+        cdRoles.append(i.roles)
+    return(cdRoles)
+
+def getModDefsModules(cd_obj):
+    cdMod = []
+    cdModObjs = []
+    for i in cd_obj:
+        cdModObjs.append(i.modules)
+    n = 0
+    for j in cdModObjs:
+        if len(j) > 0:
+            cdMod.append([])
+            for k in j:
+                cdMod[n].append([k.display_id,k.display_name,k.persistent_identity,k.definition.uri])
+        else:
+            cdMod.append("No Modules")
+        n += 1
+    return(cdMod)
+
+def getAllModDefProperties(cd_obj):
+    compDefProps = []
+    for i in cd_obj:
+        compDefProps.append([
+        getModDefsName([i]),
+        getModDefsDisplayId([i]),
+        getModDefsPersisentIdentities([i]),
+        getModDefsModules([i])
         ])
     return(compDefProps)
