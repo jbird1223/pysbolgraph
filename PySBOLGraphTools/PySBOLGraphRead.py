@@ -1,4 +1,4 @@
-from pysbolgraph.SBOL2Graph import SBOL2Graph as s2g
+from ..pysbolgraph.SBOL2Graph import SBOL2Graph as s2g
 from pysbolgraph.terms import Biopax, SBOL2
 import tkinter as tk
 
@@ -88,41 +88,43 @@ def getAllCompDefProperties(cd_obj):
         ])
     return(compDefProps)
 
-def prettyPrintAllCompDefs(cdPro):
+def prettyPrintAllCompDefs(doc_obj): #Takes SBOL document object
+    cds = getAllCompDefObjs(doc_obj)
+    cdPro = getAllCompDefProperties(cds)
     for i in cdPro:
         print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nType:\t", i[3], "\nRole:\t", i[4],"\nSequences:\t", i[5], "\nComponents:\t", i[6], "\n\n")
 
 def getAllModDefObjs(doc_obj):
     return(doc_obj.module_definitions)
 
-def getModDefsDisplayId(cd_obj):
+def getModDefsDisplayId(md_obj):
     cdDisps = []
-    for i in cd_obj:
+    for i in md_obj:
         cdDisps.append(i.display_id)
     return(cdDisps)
 
-def getModDefsName(cd_obj):
+def getModDefsName(md_obj):
     cdNames = []
-    for i in cd_obj:
+    for i in md_obj:
         cdNames.append(i.display_name)
     return(cdNames)
 
-def getModDefsPersisentIdentities(cd_obj):
+def getModDefsPersisentIdentities(md_obj):
     cdPersistId = []
-    for i in cd_obj:
+    for i in md_obj:
         cdPersistId.append(i.persistent_identity)
     return(cdPersistId)
 
-def getModDefsRoles(cd_obj):
+def getModDefsRoles(md_obj):
     cdRoles = []
-    for i in cd_obj:
+    for i in md_obj:
         cdRoles.append(i.roles)
     return(cdRoles)
 
-def getModDefsModules(cd_obj):
+def getModDefsModules(md_obj):
     cdMod = []
     cdModObjs = []
-    for i in cd_obj:
+    for i in md_obj:
         cdModObjs.append(i.modules)
     n = 0
     for j in cdModObjs:
@@ -135,9 +137,9 @@ def getModDefsModules(cd_obj):
         n += 1
     return(cdMod)
 
-def getAllModDefProperties(cd_obj):
+def getAllModDefProperties(md_obj):
     compDefProps = []
-    for i in cd_obj:
+    for i in md_obj:
         compDefProps.append([
         getModDefsName([i]),
         getModDefsDisplayId([i]),
@@ -147,6 +149,8 @@ def getAllModDefProperties(cd_obj):
         ])
     return(compDefProps)
 
-def prettyPrintAllModDefs(cdPro):
-    for i in cdPro:
+def prettyPrintAllModDefs(doc_obj): #Takes SBOL document object
+    mds = getAllModDefObjs(doc_obj)
+    mdPro = getAllModDefProperties(mds)
+    for i in mdPro:
         print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nRole:\t", i[3], "\nModules:\t", i[4], "\n\n")
