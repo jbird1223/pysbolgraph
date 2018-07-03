@@ -1,4 +1,4 @@
-from ..pysbolgraph.SBOL2Graph import SBOL2Graph as s2g
+from pysbolgraph.SBOL2Graph import SBOL2Graph as s2g
 from pysbolgraph.terms import Biopax, SBOL2
 import tkinter as tk
 
@@ -137,6 +137,22 @@ def getModDefsModules(md_obj):
         n += 1
     return(cdMod)
 
+def getModDefsFuncComps(md_obj):
+    cdFuncComps = []
+    cdFuncCompsObjs = []
+    for i in md_obj:
+        cdFuncCompsObjs.append(i.functional_components)
+    n = 0
+    for j in cdFuncCompsObjs:
+        if len(j) > 0:
+            cdFuncComps.append([])
+            for k in j:
+                cdFuncComps[n].append([k.display_id,k.display_name,k.persistent_identity,k.definition.uri])
+        else:
+            cdFuncComps.append("No FunctionalComponents")
+        n += 1
+    return(cdFuncComps)
+
 def getAllModDefProperties(md_obj):
     compDefProps = []
     for i in md_obj:
@@ -145,7 +161,8 @@ def getAllModDefProperties(md_obj):
         getModDefsDisplayId([i]),
         getModDefsPersisentIdentities([i]),
         getModDefsRoles([i]),
-        getModDefsModules([i])
+        getModDefsModules([i]),
+        getModDefsFuncComps([i])
         ])
     return(compDefProps)
 
@@ -153,4 +170,4 @@ def prettyPrintAllModDefs(doc_obj): #Takes SBOL document object
     mds = getAllModDefObjs(doc_obj)
     mdPro = getAllModDefProperties(mds)
     for i in mdPro:
-        print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nRole:\t", i[3], "\nModules:\t", i[4], "\n\n")
+        print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nRole:\t", i[3], "\nModules:\t", i[4], "\nFunctionalComponents:\t", i[5], "\n\n")
