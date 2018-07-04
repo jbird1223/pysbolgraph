@@ -1,8 +1,6 @@
 from pysbolgraph.SBOL2Graph import SBOL2Graph as s2g
 from pysbolgraph.terms import Biopax, SBOL2
-import tkinter as tk
-
-
+import sys
 
 def loadSBOL(doc_name):
     doc_obj = s2g()
@@ -91,6 +89,7 @@ def getAllCompDefProperties(cd_obj):
 def prettyPrintAllCompDefs(doc_obj): #Takes SBOL document object
     cds = getAllCompDefObjs(doc_obj)
     cdPro = getAllCompDefProperties(cds)
+    print("--------------------\nComponentDefinitions:\n")
     for i in cdPro:
         print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nType:\t", i[3], "\nRole:\t", i[4],"\nSequences:\t", i[5], "\nComponents:\t", i[6], "\n\n")
 
@@ -169,5 +168,13 @@ def getAllModDefProperties(md_obj):
 def prettyPrintAllModDefs(doc_obj): #Takes SBOL document object
     mds = getAllModDefObjs(doc_obj)
     mdPro = getAllModDefProperties(mds)
+    print("--------------------\nModuleDefinitions:\n")
     for i in mdPro:
         print("dcterms:Title:\t", i[0], "\ndisplayId:\t", i[1], "\npersistentIdentity:\t", i[2], "\nRole:\t", i[3], "\nModules:\t", i[4], "\nFunctionalComponents:\t", i[5], "\n\n")
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        document = sys.argv[1]
+        sbol_doc = loadSBOL(document)
+        prettyPrintAllCompDefs(sbol_doc)
+        prettyPrintAllModDefs(sbol_doc)
